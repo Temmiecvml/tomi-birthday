@@ -1,0 +1,56 @@
+.admin-notes-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  padding: 2rem 1.5rem;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #d72660;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.loading, .no-notes {
+  text-align: center;
+  color: #888;
+  font-size: 1.1rem;
+  margin: 2rem 0;
+}
+
+.notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.note-item {
+  background: #f9f6ff;
+  border-radius: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding: 1.25rem 1rem;
+  box-shadow: 0 1px 6px rgba(215,38,96,0.07);
+  transition: box-shadow 0.2s;
+}
+
+.note-item:hover {
+  box-shadow: 0 4px 16px rgba(215,38,96,0.13);
+}
+
+.note-message {
+  font-size: 1.15rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+.note-author {
+  text-align: right;
+  color: #d72660;
+  font-weight: 500;
+  font-size: 1rem;
+}

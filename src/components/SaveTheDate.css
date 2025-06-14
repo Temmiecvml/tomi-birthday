@@ -1,0 +1,31 @@
+/* SaveTheDate.css migrated from Vite app */
+.save-the-date {
+  text-align: center;
+  margin-bottom: 2rem;
+  background: linear-gradient(90deg, #ffe0ec 0%, #e0eaff 100%);
+  padding: 2rem 1rem 1.5rem 1rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+.save-the-date h1 {
+  color: #e75480;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.save-the-date h2 {
+  color: #3a3a3a;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.save-the-date p {
+  color: #444;
+  font-size: 1.1rem;
+}
+.save-the-date .invite {
+  margin-top: 1rem;
+  font-weight: 500;
+  color: #e75480;
+}
+.save-the-date strong {
+  color: #1976d2;
+}

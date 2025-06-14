@@ -1,0 +1,47 @@
+/* RSVPForm.css migrated from Vite app */
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: #f7f7fa;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  max-width: 350px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+.rsvp-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  color: #1976d2;
+}
+.rsvp-form input, .rsvp-form select {
+  margin-top: 0.25rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background: #fff;
+  color: #222;
+}
+.rsvp-form input:focus, .rsvp-form select:focus {
+  outline: 2px solid #1976d2;
+  border-color: #1976d2;
+}
+.rsvp-form button {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0.5rem;
+}
+.rsvp-form button:hover {
+  background: #115293;
+}
