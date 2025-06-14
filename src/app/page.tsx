@@ -1,96 +1,55 @@
-import { useState, useEffect } from 'react';
-import SaveTheDate from '../components/SaveTheDate';
-import RSVPForm from '../components/RSVPForm';
-import AdminNotes from '../components/AdminNotes';
-import '../components/SaveTheDate.css';
-import '../components/RSVPForm.css';
-import '../components/AdminNotes.css';
+'use client';
+
+import '@/components/SaveTheDate.css';
 
 export default function Home() {
-  const [rsvps, setRsvps] = useState<{ name: string; attending: boolean; message: string }[]>([]);
-  const [submitted, setSubmitted] = useState(false);
-  const [revoked, setRevoked] = useState<string[]>([]);
-  const [adminView, setAdminView] = useState(false);
-
-  useEffect(() => {
-    fetch('/api/rsvps')
-      .then(res => res.json())
-      .then(setRsvps);
-    fetch('/api/rsvps?revoked=1')
-      .then(res => res.json())
-      .then(data => setRevoked(data.map((r: any) => r.name)));
-  }, []);
-
-  const handleRSVP = (name: string, attending: boolean, message: string) => {
-    fetch('/api/rsvps', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, attending, message })
-    })
-      .then(async res => {
-        if (!res.ok) throw new Error((await res.json()).error || 'Error');
-        return res.json();
-      })
-      .then(() => {
-        setRsvps(prev => [...prev, { name, attending, message }]);
-        setSubmitted(true);
-        setTimeout(() => setSubmitted(false), 3000);
-      })
-      .catch(e => alert(e.message));
-  };
-
-  const revokeInvite = (name: string) => {
-    fetch('/api/rsvps/revoke', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name })
-    })
-      .then(() => setRevoked(prev => [...prev, name]));
-  };
-
-  const unrevokeInvite = (name: string) => {
-    fetch('/api/rsvps/unrevoke', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name })
-    })
-      .then(() => setRevoked(prev => prev.filter(n => n !== name)));
-  };
-
   return (
-    <div className="app-container">
-      <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '1rem' }}>
-        <button onClick={() => setAdminView(v => !v)} style={{ background: adminView ? '#a020f0' : '#1a1a1a', color: '#fff', fontWeight: 600 }}>
-          {adminView ? 'Back to Event' : 'Admin: View Notes'}
-        </button>
+    <div className="app-container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #f8e1ff 0%, #e0c3fc 100%)' }}>
+      <div style={{
+        background: 'rgba(255,255,255,0.95)',
+        borderRadius: 24,
+        boxShadow: '0 8px 32px rgba(160,32,240,0.12)',
+        padding: '2.5rem 2rem',
+        maxWidth: 420,
+        width: '100%',
+        textAlign: 'center',
+        margin: '2rem 0',
+      }}>
+        <h1 style={{ fontFamily: 'cursive', color: '#a020f0', fontSize: '2.5rem', marginBottom: 8 }}>
+          Tomi’s 30th Birthday
+        </h1>
+        <h2 style={{ color: '#6c3483', fontWeight: 500, fontSize: '1.3rem', marginBottom: 24 }}>
+          Save the Date!
+        </h2>
+        <div style={{ fontSize: '1.1rem', color: '#333', marginBottom: 18 }}>
+          <span role="img" aria-label="calendar">📅</span> <b>Date:</b> Saturday, July 19, 2025<br/>
+          <span role="img" aria-label="clock">⏰</span> <b>Time:</b> 6:00 PM<br/>
+          <span role="img" aria-label="location">📍</span> <b>Venue:</b> Tomi’s Place, Lagos
+        </div>
+        <div style={{ fontSize: '1.05rem', color: '#6c3483', marginBottom: 24 }}>
+          Join us for an unforgettable evening of laughter, music, and memories as we celebrate Tomi’s milestone birthday!<br/>
+          <span style={{ fontSize: '1.5rem' }}>🎉🥳💜</span>
+        </div>
+        <div style={{ fontSize: '1rem', color: '#555', marginBottom: 24 }}>
+          Kindly RSVP by July 10th.<br/>
+          Formal invitation and details to follow.
+        </div>
+        <a href="/rsvp-form" style={{
+          display: 'inline-block',
+          background: '#a020f0',
+          color: '#fff',
+          padding: '0.75rem 2.2rem',
+          borderRadius: 8,
+          fontWeight: 600,
+          fontSize: '1.1rem',
+          textDecoration: 'none',
+          boxShadow: '0 2px 8px rgba(160,32,240,0.10)',
+          transition: 'background 0.2s',
+        }}>RSVP Now</a>
       </div>
-      {adminView ? (
-        <AdminNotes />
-      ) : (
-        <>
-          <SaveTheDate />
-          <RSVPForm onSubmit={handleRSVP} />
-          {submitted && <div className="thank-you">Thank you for your RSVP!</div>}
-          {rsvps.length > 0 && (
-            <div className="rsvp-list">
-              <h3>Friends who have RSVP'd:</h3>
-              <ul>
-                {rsvps.map((r, i) => (
-                  <li key={i} style={{ opacity: revoked.includes(r.name) ? 0.5 : 1 }}>
-                    <strong>{r.name}</strong> - {r.attending ? 'Attending' : 'Not Attending'}
-                    {r.message && <span>: "{r.message}"</span>}
-                    {revoked.includes(r.name) ? (
-                      <button style={{ marginLeft: 8 }} onClick={() => unrevokeInvite(r.name)}>Unrevoke</button>
-                    ) : (
-                      <button style={{ marginLeft: 8 }} onClick={() => revokeInvite(r.name)}>Revoke</button>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </>
-      )}
+      <footer style={{ marginTop: 32, color: '#a020f0', fontSize: '0.95rem', opacity: 0.7 }}>
+        Made with 💜 for Tomi’s friends & family
+      </footer>
     </div>
   );
 }
